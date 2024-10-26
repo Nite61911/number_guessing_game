@@ -14,18 +14,18 @@ USERNAME_RESULT=$($PSQL "SELECT username FROM users WHERE username='$USERNAME'")
 USER_ID_RESULT=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
 
 # if player is not found
-if [[ -z $USERNAME_RESULT ]]; then
-    # greet player
-    echo -e "\nWelcome, $USERNAME! It looks like this is your first time here.\n"
+# if [[ -z $USERNAME_RESULT ]]; then
+#     # greet player
+#     echo -e "\nWelcome, $USERNAME! It looks like this is your first time here.\n"
     
-    # add player to database
-    INSERT_USERNAME_RESULT=$($PSQL "INSERT INTO users(username) VALUES ('$USERNAME')")
-    USER_ID_RESULT=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
-else
-    GAMES_PLAYED=$($PSQL "SELECT COUNT(game_id) FROM games WHERE user_id=$USER_ID_RESULT")
-    BEST_GAME=$($PSQL "SELECT MIN(guesses) FROM games WHERE user_id=$USER_ID_RESULT")
-    echo -e "\nWelcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses.\n"
-fi
+#     # add player to database
+#     INSERT_USERNAME_RESULT=$($PSQL "INSERT INTO users(username) VALUES ('$USERNAME')")
+#     USER_ID_RESULT=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
+# else
+#     GAMES_PLAYED=$($PSQL "SELECT COUNT(game_id) FROM games WHERE user_id=$USER_ID_RESULT")
+#     BEST_GAME=$($PSQL "SELECT MIN(guesses) FROM games WHERE user_id=$USER_ID_RESULT")
+#     echo -e "\nWelcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses.\n"
+# fi
 
 # generate random number between 1 and 1000
 SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
