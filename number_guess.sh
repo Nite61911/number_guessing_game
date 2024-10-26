@@ -39,15 +39,14 @@ read USER_GUESS
 
 # loop to prompt user to guess until correct
 until [[ $USER_GUESS -eq $SECRET_NUMBER ]]; do
-    # update guess count
-    ((GUESS_COUNT++))
-
-    # check guess is valid/an integer
-    if [[ ! $USER_GUESS =~ ^[0-9]+$ || $USER_GUESS -gt 1000 || $USER_GUESS -lt 1 ]]; then
-        # request valid guess
+    # check if input is a valid integer
+    if [[ ! $USER_GUESS =~ ^[0-9]+$ ]]; then
+        echo -e "\nThat is not an integer, guess again:"
+    elif [[ $USER_GUESS -gt 1000 || $USER_GUESS -lt 1 ]]; then
         echo -e "\nThat is not a valid number between 1 and 1000, guess again:"
     else
-        # check inequalities and give hint
+        # increment guess count and check inequalities to give hints
+        ((GUESS_COUNT++))
         if [[ $USER_GUESS -lt $SECRET_NUMBER ]]; then
             echo "It's higher than that, guess again:"
         else
